@@ -1,0 +1,420 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "A software application or utility created by MonoVoice.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique stable identifier for the application (e.g., monovoice, quicknotes)."
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly slug for routing."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the application."
+        },
+        "publishStatus": {
+          "type": "string",
+          "enum": ["Draft", "Published", "Archived"],
+          "description": "Administrative publishing status."
+        },
+        "tagline": {
+          "type": "object",
+          "description": "Bilingual short tagline."
+        },
+        "description": {
+          "type": "object",
+          "description": "Bilingual card description."
+        },
+        "longDescription": {
+          "type": "object",
+          "description": "Bilingual detailed multi-paragraph description."
+        },
+        "iconType": {
+          "type": "string",
+          "description": "Vector icon glyph identifier."
+        },
+        "customIconUrl": {
+          "type": "string",
+          "description": "Optional custom icon image URL."
+        },
+        "platforms": {
+          "type": "array",
+          "description": "Supported target operating systems."
+        },
+        "category": {
+          "type": "string",
+          "description": "Functional domain category."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["available", "in-development", "archived"],
+          "description": "Development lifecycle stage."
+        },
+        "version": {
+          "type": "string",
+          "description": "Current release version string."
+        },
+        "releaseDate": {
+          "type": "string",
+          "description": "Date of latest release (YYYY-MM-DD)."
+        },
+        "fileSize": {
+          "type": "string",
+          "description": "Formatted binary package size."
+        },
+        "featured": {
+          "type": "boolean",
+          "description": "Whether the app is pinned to the homepage showcase."
+        },
+        "download": {
+          "type": "object",
+          "description": "Platform-specific binary download URLs and filenames."
+        },
+        "github": {
+          "type": "string",
+          "description": "Official GitHub repository URL."
+        },
+        "screenshots": {
+          "type": "array",
+          "description": "List of screenshot preview objects with localized captions."
+        },
+        "changelog": {
+          "type": "array",
+          "description": "Historical release versions and change bullet points."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO-8601 format."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp in ISO-8601 format."
+        }
+      },
+      "required": ["id", "slug", "name", "publishStatus", "platforms", "category", "status", "version"]
+    },
+    "UploadedFileMeta": {
+      "title": "UploadedFileMeta",
+      "description": "Metadata for files managed on the server or in storage.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the file metadata record."
+        },
+        "originalName": {
+          "type": "string",
+          "description": "Original file name upon upload."
+        },
+        "storedName": {
+          "type": "string",
+          "description": "Internal unique storage file name."
+        },
+        "mimeType": {
+          "type": "string",
+          "description": "MIME type of the uploaded file."
+        },
+        "sizeBytes": {
+          "type": "number",
+          "description": "Size in bytes."
+        },
+        "sizeFormatted": {
+          "type": "string",
+          "description": "Human-readable size string."
+        },
+        "uploadedAt": {
+          "type": "string",
+          "description": "Timestamp of upload in ISO-8601 format."
+        },
+        "url": {
+          "type": "string",
+          "description": "Access URL for downloading or viewing the file."
+        },
+        "usageLocation": {
+          "type": "string",
+          "description": "Where the file is referenced (e.g. Screenshot, Binary Download)."
+        },
+        "isPrivate": {
+          "type": "boolean",
+          "description": "Whether the file requires admin authentication to access."
+        },
+        "storageType": {
+          "type": "string",
+          "enum": ["cloud_storage", "github_release", "local_fallback"],
+          "description": "Storage backend type."
+        }
+      },
+      "required": ["id", "originalName", "storedName", "mimeType", "sizeBytes", "uploadedAt", "url", "isPrivate"]
+    },
+    "AdminAuditLog": {
+      "title": "AdminAuditLog",
+      "description": "Security audit record for administrative actions.",
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action type identifier (e.g., LOGIN, PROJECT_UPDATE, FILE_DELETE)."
+        },
+        "details": {
+          "type": "string",
+          "description": "Descriptive details of the action."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILED", "WARNING", "BLOCKED"],
+          "description": "Outcome status of the action."
+        },
+        "ip": {
+          "type": "string",
+          "description": "Client IP address."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Event timestamp in ISO-8601 format."
+        },
+        "userAgent": {
+          "type": "string",
+          "description": "User-Agent string of the client."
+        }
+      },
+      "required": ["action", "details", "status", "ip", "timestamp"]
+    },
+    "BackupManifest": {
+      "title": "BackupManifest",
+      "description": "Metadata and checksum manifest for a system backup.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique backup identifier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Descriptive backup name."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["manual", "automatic", "pre-restore"],
+          "description": "Trigger type of the backup."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["completed", "failed", "corrupted"],
+          "description": "Integrity status."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp in ISO-8601 format."
+        },
+        "sizeBytes": {
+          "type": "number",
+          "description": "Size of the backup archive in bytes."
+        },
+        "sizeFormatted": {
+          "type": "string",
+          "description": "Formatted size string."
+        },
+        "checksumSha256": {
+          "type": "string",
+          "description": "Cryptographic SHA-256 hash of the backup archive."
+        },
+        "projectCount": {
+          "type": "number",
+          "description": "Number of projects included in the backup."
+        },
+        "filesCount": {
+          "type": "number",
+          "description": "Number of uploaded files tracked."
+        },
+        "storagePath": {
+          "type": "string",
+          "description": "Private Cloud Storage path to archive."
+        },
+        "isVerified": {
+          "type": "boolean",
+          "description": "Whether the backup checksum was verified."
+        },
+        "hasInlineSnapshot": {
+          "type": "boolean",
+          "description": "Whether an inline JSON snapshot is attached."
+        }
+      },
+      "required": ["id", "name", "type", "status", "createdAt", "checksumSha256", "projectCount"]
+    },
+    "RecoveryOperationLog": {
+      "title": "RecoveryOperationLog",
+      "description": "State tracking for chunked backup recovery operations.",
+      "type": "object",
+      "properties": {
+        "operationId": {
+          "type": "string",
+          "description": "Unique recovery operation run ID."
+        },
+        "backupId": {
+          "type": "string",
+          "description": "ID of the backup being restored."
+        },
+        "preRestoreSnapshotId": {
+          "type": "string",
+          "description": "Emergency snapshot ID created prior to restoration."
+        },
+        "totalChunks": {
+          "type": "number",
+          "description": "Total number of transaction batches."
+        },
+        "lastSuccessfulChunkIndex": {
+          "type": "number",
+          "description": "Index of the last successfully committed batch."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["IN_PROGRESS", "COMPLETED", "FAILED", "HALTED"],
+          "description": "Current status of the recovery operation."
+        },
+        "startedAt": {
+          "type": "string",
+          "description": "ISO-8601 start timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO-8601 last progress timestamp."
+        },
+        "errorDetails": {
+          "type": "string",
+          "description": "Diagnostic error string if failed."
+        }
+      },
+      "required": ["operationId", "backupId", "totalChunks", "lastSuccessfulChunkIndex", "status", "startedAt"]
+    },
+    "SystemSettings": {
+      "title": "SystemSettings",
+      "description": "Global application configuration and migration lock state.",
+      "type": "object",
+      "properties": {
+        "seed_completed": {
+          "type": "boolean",
+          "description": "Flag indicating initial seed data was committed."
+        },
+        "status": {
+          "type": "string",
+          "description": "Lock status (e.g. IN_PROGRESS, COMPLETED)."
+        },
+        "lockedBy": {
+          "type": "string",
+          "description": "Container revision or instance ID that holds the migration lock."
+        },
+        "lockedAt": {
+          "type": "string",
+          "description": "Timestamp when the lock was acquired."
+        },
+        "autoBackupEnabled": {
+          "type": "boolean",
+          "description": "Whether automated scheduled backups are enabled."
+        },
+        "autoBackupIntervalHours": {
+          "type": "number",
+          "description": "Interval between automatic backups in hours."
+        },
+        "maxBackupsCount": {
+          "type": "number",
+          "description": "Maximum number of retained backups."
+        }
+      }
+    },
+    "AdminSession": {
+      "title": "AdminSession",
+      "description": "Distributed authenticated administrator session.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "username": { "type": "string" },
+        "csrfToken": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "expiresAt": { "type": "number" },
+        "ipAddress": { "type": "string" },
+        "userAgent": { "type": "string" }
+      },
+      "required": ["id", "username", "csrfToken", "createdAt", "expiresAt"]
+    },
+    "RateLimitRecord": {
+      "title": "RateLimitRecord",
+      "description": "Distributed rate limiting counter per client IP hash.",
+      "type": "object",
+      "properties": {
+        "attempts": { "type": "number" },
+        "firstAttemptTime": { "type": "number" },
+        "lockoutUntil": { "type": "number" }
+      },
+      "required": ["attempts", "firstAttemptTime", "lockoutUntil"]
+    },
+    "SudoToken": {
+      "title": "SudoToken",
+      "description": "Single-use short-lived authorization token for destructive actions.",
+      "type": "object",
+      "properties": {
+        "token": { "type": "string" },
+        "username": { "type": "string" },
+        "expiresAt": { "type": "number" }
+      },
+      "required": ["token", "username", "expiresAt"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/Project" },
+      "description": "Primary storage of application project entries."
+    },
+    "/uploaded_files/{fileId}": {
+      "schema": { "$ref": "#/entities/UploadedFileMeta" },
+      "description": "Registry of uploaded asset and binary metadata."
+    },
+    "/admin_audit_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AdminAuditLog" },
+      "description": "Append-only security audit log."
+    },
+    "/backups/{backupId}": {
+      "schema": { "$ref": "#/entities/BackupManifest" },
+      "description": "Registry of system backup manifests and verification hashes."
+    },
+    "/recovery_operation_log/{operationId}": {
+      "schema": { "$ref": "#/entities/RecoveryOperationLog" },
+      "description": "Operational checkpoint records for multi-batch restore operations."
+    },
+    "/system_settings/{settingKey}": {
+      "schema": { "$ref": "#/entities/SystemSettings" },
+      "description": "System settings, distributed migration locks, and scheduler configuration."
+    },
+    "/admin_sessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/AdminSession" },
+      "description": "Multi-instance shared administrator sessions."
+    },
+    "/rate_limits/{limitKey}": {
+      "schema": { "$ref": "#/entities/RateLimitRecord" },
+      "description": "Multi-instance shared IP login attempt rate limits."
+    },
+    "/sudo_tokens/{tokenId}": {
+      "schema": { "$ref": "#/entities/SudoToken" },
+      "description": "Multi-instance single-use confirmation tokens for high-risk operations."
+    },
+    "/admin_devices/{deviceId}": {
+      "description": "Registered trusted Android authenticator devices with ECDSA P-256 public keys."
+    },
+    "/admin_pairing_codes/{codeId}": {
+      "description": "Temporary 6-digit one-time codes for enrolling trusted devices with brute-force protection."
+    },
+    "/admin_approval_requests/{requestId}": {
+      "description": "Cryptographic approval challenges for sensitive operations with idempotency state machine."
+    },
+    "/admin_device_challenges/{challengeId}": {
+      "description": "Ephemeral single-use challenges for mutual authentication of phone HTTP requests."
+    },
+    "/admin_recovery_codes/{codeHash}": {
+      "description": "Single-use emergency recovery codes exclusively for revoking compromised or lost devices."
+    }
+  }
+}

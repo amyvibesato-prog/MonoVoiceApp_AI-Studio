@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', 'Rubik', system-ui, -apple-system, sans-serif;
+    --font-brush: 'Shantell Sans', 'Caveat', cursive, sans-serif;
+    --font-impact: 'Rubik', 'Dela Gothic One', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Default Turquoise Comic-Poster Theme (matches mockup) */
+    --bg-canvas: #67cdcc;
+    --bg-canvas-accent: #74d6d5;
+    --bg-canvas-deep: #54b9b9;
+    --ink-card: #0d1317;
+    --ink-card-hover: #121a20;
+    --accent-yellow: #f6cf3f;
+    --accent-yellow-bright: #ffe05d;
+    --accent-teal: #66c9c8;
+    --text-on-canvas: #0b1316;
+    --text-on-ink: #f3f6f7;
+    --text-muted-on-ink: #b8c4c8;
+  }
+
+  .dark {
+    /* Night Ink Variant when toggled via top-right theme button */
+    --bg-canvas: #132e32;
+    --bg-canvas-accent: #1a3d42;
+    --bg-canvas-deep: #0c2023;
+    --ink-card: #0a0f12;
+    --ink-card-hover: #0f171c;
+    --accent-yellow: #f6cf3f;
+    --accent-yellow-bright: #ffe05d;
+    --accent-teal: #5ec7c6;
+    --text-on-canvas: #f1f7f8;
+    --text-on-ink: #f3f6f7;
+    --text-muted-on-ink: #a9b8bd;
+  }
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+    background-color: var(--bg-canvas);
+    color: var(--text-on-canvas);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+.font-brush {
+  font-family: var(--font-brush);
+  font-style: italic;
+  font-weight: 800;
+}
+
+.font-impact {
+  font-family: var(--font-impact);
+  font-weight: 900;
+  font-style: italic;
+}
+
+/* Painterly Turquoise Canvas Texture */
+.poster-canvas-bg {
+  background-color: var(--bg-canvas);
+  background-image:
+    radial-gradient(ellipse 65% 50% at 72% 28%, var(--bg-canvas-accent) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 45% at 18% 18%, var(--bg-canvas-accent) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 60% at 50% 90%, var(--bg-canvas-deep) 0%, transparent 75%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 45%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* Jagged Comic-Brush Card Silhouette */
+.comic-card {
+  position: relative;
+  background-color: var(--ink-card);
+  color: var(--text-on-ink);
+  clip-path: polygon(
+    0.8% 2.2%,
+    3.5% 0%,
+    97.2% 0.6%,
+    99.4% 0%,
+    100% 4.5%,
+    99.3% 96.5%,
+    97.8% 100%,
+    2.2% 99.2%,
+    0% 97.5%,
+    0.4% 8.5%
+  );
+  box-shadow: 0 14px 28px -6px rgba(9, 18, 21, 0.35);
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease;
+}
+
+.comic-card:hover {
+  background-color: var(--ink-card-hover);
+}
+
+/* Yellow Brush CTA Button ("Відкрити →", "Дізнатися більше →", "Написати →") */
+.comic-btn-yellow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: #f6cf3f;
+  color: #0b1013;
+  font-weight: 800;
+  clip-path: polygon(
+    2.5% 4%,
+    95.5% 0%,
+    100% 38%,
+    94.5% 98%,
+    68% 100%,
+    1.5% 96%,
+    0% 55%
+  );
+  transition: transform 0.15s ease, background-color 0.15s ease, filter 0.15s ease;
+}
+
+.comic-btn-yellow:hover {
+  background-color: #ffdc52;
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Tilted Yellow Eyebrow Brush Strip ("МОЇ ПРОГРАМИ") */
+.comic-eyebrow-strip {
+  background-color: #f6cf3f;
+  color: #0b1013;
+  clip-path: polygon(
+    5% 12%,
+    96% 0%,
+    100% 24%,
+    93% 56%,
+    98% 84%,
+    4% 100%,
+    0% 68%,
+    4% 38%
+  );
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1317;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f6cf3f;
+  border-radius: 2px;
+}

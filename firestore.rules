@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    match /projects/{projectId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(projectId);
+    }
+
+    match /uploaded_files/{fileId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(fileId);
+    }
+
+    match /admin_audit_logs/{logId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(logId);
+    }
+
+    match /backups/{backupId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(backupId);
+    }
+
+    match /recovery_operation_log/{operationId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(operationId);
+    }
+
+    match /system_settings/{settingKey} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(settingKey);
+    }
+
+    match /admin_sessions/{sessionId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(sessionId);
+    }
+
+    match /rate_limits/{limitKey} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(limitKey);
+    }
+
+    match /sudo_tokens/{tokenId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(tokenId);
+    }
+
+    match /admin_devices/{deviceId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(deviceId);
+    }
+
+    match /admin_pairing_codes/{codeId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(codeId);
+    }
+
+    match /admin_approval_requests/{requestId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(requestId);
+    }
+
+    match /admin_device_challenges/{challengeId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(challengeId);
+    }
+
+    match /admin_recovery_codes/{codeHash} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(codeHash);
+    }
+
+    match /admin_diagnostics/{docId} {
+      allow get, list: if true;
+      allow create, update, delete: if isValidId(docId);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

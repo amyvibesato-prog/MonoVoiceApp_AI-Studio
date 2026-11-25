@@ -1,0 +1,8 @@
+{
+  "name": "MonoVoice Apps Site",
+  "description": "Small apps. Real purpose. Minimalist showcase and download platform for independent software applications and utilities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
